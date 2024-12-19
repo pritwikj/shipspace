@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base styles */
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 8rem 2rem 2rem;
+            background: linear-gradient(to right, #f8fafc, #e2e8f0);
+            min-height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 200;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Features section */
+        .features {
+            padding: 0 2rem 8rem;
+            background: white;
+        }
+
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Contact section */
+        .contact {
+            padding: 4rem 2rem;
+            background: linear-gradient(to right, #1e40af, #2563eb);
+            color: white;
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column ul a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul a:hover {
+            color: white;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-content,
+            .features-grid,
+            .contact-content,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Add these styles to your existing CSS */
+
+        .text-blue {
+            color: #2563eb;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Benefits section */
+        .benefits {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .benefits-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefits-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            padding: 1.5rem;
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            background: #EFF2FE;
+        }
+
+        .icon-container {
+            background: rgba(37, 99, 235, 0.2);
+            width: fit-content;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-container svg {
+            color: #2563eb;
+        }
+
+        /* What's ShipSpace section */
+        .what-is {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .what-is-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .what-is-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .what-is-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .feature-item p {
+            margin: 0.5rem 0 0 0;
+            color: #64748b;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .what-is-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Add these styles to your existing CSS */
+
+        .why-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .why-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .why-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+
+        .why-features {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .why-feature {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .why-feature-text h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .why-feature-text p {
+            margin: 0.5rem 0 0 0;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .why-image {
+                order: -1;
+            }
+        }
+
+        /* Add these styles to your existing CSS */
+
+        .who-we-help {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .who-we-help-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .who-we-help-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .help-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .help-card:hover {
+            background: #EFF2FE;
+        }
+
+        .help-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .help-card p {
+            color: #64748b;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Add this to your existing media queries */
+        @media (max-width: 768px) {
+            .help-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Add this to your existing style section */
+        .stats {
+            padding: 2rem;
+            margin-top: 4rem;
+            background: transparent;
+            width: 100%;
+            margin-bottom: -2rem;
+        }
+
+        .stats-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: transparent;
+            box-shadow: none;
+            padding: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin: 0;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin: 0.5rem 0 0 0;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 2rem;
+            }
+            
+            .stats {
+                margin-top: -2rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="logo">ShipSpace</a>
+            <div class="nav-links">
+                <a href="#about">About Us</a>
+                <a href="#programs">Programs</a>
+                <a href="#contact-form">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Empower Students to Build Their Future</h1>
+                <p>Transform education through project-based learning that connects passion with purpose. Our K-12 program helps students create meaningful portfolios while meeting educational standards.</p>
+                <a href="#contact-form" class="cta-button">Partner With Us</a>
+            </div>
+            <div class="hero-image">
+                <!-- Add your hero image here -->
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stats-content">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>1.7M+</h3>
+                        <p>Students Impacted</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>132k+</h3>
+                        <p>Parents Love Us</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>10</h3>
+                        <p>Areas of Project Exploration</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="benefits">
+        <div class="benefits-content">
+            <h2 class="text-center">Where <span class="text-blue">Standards</span> Meet <span class="text-blue">Innovation</span></h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"></path>
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            <path d="M5 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+                            <path d="M7 16.5L8 22l-3-1-3 1 1-5.5"></path>
+                        </svg>
+                    </div>
+                    <h3>STEM & Artificial Intelligence</h3>
+                    <p>Cutting-edge technology and science projects.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                            <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"></path>
+                        </svg>
+                    </div>
+                    <h3>Community Impact Initiatives</h3>
+                    <p>Real-world projects that make a difference.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 7L13.5 15.5 8.5 10.5 2 17"></path>
+                            <path d="M16 7h6v6"></path>
+                        </svg>
+                    </div>
+                    <h3>Entrepreneurship & Innovation</h3>
+                    <p>Building business and creative thinking skills.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"></path>
+                            <path d="M12 16v-4"></path>
+                            <path d="M12 8h.01"></path>
+                        </svg>
+                    </div>
+                    <h3>Financial Literacy & Technology</h3>
+                    <p>Essential skills for the digital age.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="what-is">
+        <div class="what-is-content">
+            <h2>What's <span class="text-blue">ShipSpace</span>?</h2>
+            <div class="what-is-grid">
+                <div class="what-is-text">
+                    <div class="feature-item">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M8 21h8"></path>
+                                <path d="M12 17v4"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>CUSTOMIZED LEARNING ENVIRONMENT</h3>
+                            <p>Tailored to fit your school's needs.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>HANDS-ON PROJECTS</h3>
+                            <p>Practical and engaging STEM activities.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20h9"></path>
+                                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>TRAINING & PROFESSIONAL DEVELOPMENT</h3>
+                            <p>Empowering Educators.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <path d="M22 6l-10 7L2 6"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>ONGOING SUPPORT & SUSTAINABILITY</h3>
+                            <p>Continuous improvement and support.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="what-is-image">
+                    <!-- Add your image here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-section">
+        <div class="why-content">
+            <h2>Why Choose Our <span class="text-blue">Platform</span>?</h2>
+            <div class="why-grid">
+                <div class="why-image">
+                    <img src="classroom-image.jpg" alt="Students learning" class="rounded-lg">
+                </div>
+                <div class="why-features">
+                    <div class="why-feature">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                            </svg>
+                        </div>
+                        <div class="why-feature-text">
+                            <h3>FOR STUDENTS</h3>
+                            <p>Build compelling portfolios, work on interest-aligned projects, and develop practical skills for college and careers.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-feature">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 7L13.5 15.5 8.5 10.5 2 17"></path>
+                                <path d="M16 7h6v6"></path>
+                            </svg>
+                        </div>
+                        <div class="why-feature-text">
+                            <h3>FOR EDUCATORS</h3>
+                            <p>Access ready-to-implement curriculum, track progress easily, and spend more time mentoring students.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-feature">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div class="why-feature-text">
+                            <h3>FOR SCHOOLS</h3>
+                            <p>Improve graduation rates, meet standards efficiently, and prepare students for future success.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-feature">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                            </svg>
+                        </div>
+                        <div class="why-feature-text">
+                            <h3>MEETING STANDARDS WITH EASE</h3>
+                            <p>Our curriculum aligns with educational standards, simplifying the path to academic success.</p>
+                        </div>
+                    </div>
+
+                    <div class="why-feature">
+                        <div class="icon-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <div class="why-feature-text">
+                            <h3>FOSTERING LIFELONG LEARNING</h3>
+                            <p>Cultivate a lifelong love for learning and a passion for STEM.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="who-we-help">
+        <div class="who-we-help-content">
+            <h2 class="text-center">Who We Help</h2>
+            <div class="help-grid">
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 16.25"></path>
+                            <path d="M8 16h.01"></path>
+                            <path d="M8 20h.01"></path>
+                            <path d="M12 18h.01"></path>
+                            <path d="M12 22h.01"></path>
+                            <path d="M16 16h.01"></path>
+                            <path d="M16 20h.01"></path>
+                        </svg>
+                    </div>
+                    <h3>Teachers</h3>
+                    <p>Inspire students with engaging, hands-on, project-based learning</p>
+                </div>
+
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5v-15A2.5 2.5 0 016.5 2H20v20H6.5a2.5 2.5 0 010-5H20"></path>
+                        </svg>
+                    </div>
+                    <h3>Curriculum Directors</h3>
+                    <p>Meet milestones with fun, standards-aligned curriculum</p>
+                </div>
+
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M8 21h8"></path>
+                            <path d="M12 17v4"></path>
+                        </svg>
+                    </div>
+                    <h3>District & School Administrators</h3>
+                    <p>Accelerate critical thinking, math, and science skills with real-world connections</p>
+                </div>
+
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 010 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>Students & Parents</h3>
+                    <p>Foster a lifelong love for learning and a passion for STEM</p>
+                </div>
+
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h3>Public Schools</h3>
+                    <p>Empower K-12 learners in math and science through real-world applications</p>
+                </div>
+
+                <div class="help-card">
+                    <div class="icon-container">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"></path>
+                        </svg>
+                    </div>
+                    <h3>Private Schools</h3>
+                    <p>Stand out with innovative and fun STEM programs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="features"></section>
+        <div class="features-content">
+            <h2>Our Programs</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>STEM Projects</h3>
+                    <p>Hands-on engineering, robotics, and science projects that make learning fun and memorable</p>
+                </div>
+                <div class="feature-card">
+                    <h3>AI & Technology</h3>
+                    <p>Introduction to artificial intelligence, coding, and emerging technologies for the digital age</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Community Impact</h3>
+                    <p>Student-led projects that solve real community challenges while building leadership skills</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Career Exploration</h3>
+                    <p>Interactive workshops connecting students with industry professionals and future careers</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Custom Programs</h3>
+                    <p>Tailored project-based learning experiences aligned with your curriculum goals</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Teacher Training</h3>
+                    <p>Professional development to help educators lead innovative projects independently</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="contact" style="background: linear-gradient(to right, #1e40af, #2563eb);">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2 style="font-size: 2.0rem; margin: 0;">Impact-Driven Education</h2>
+                <p style="margin-bottom: 2rem;">Join schools nationwide in revolutionizing education through project-based learning. Our platform bridges the gap between academic requirements and real-world skills, ensuring students graduate with both knowledge and experience.</p>
+                <div class="impact-stats">
+                    <div>
+                        <h3 style="font-size: 2.0rem; margin: 0;">1.7 million+</h3>
+                        <p style="font-size: 1.1rem; color: #f1f5f9; opacity: 0.9;">We've impacted over 1.7 million students in the last 4 years. Learn how we can transform learning at your school.</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 2.0rem; margin: 0;">132,000+</h3>
+                        <p style="font-size: 1.1rem; color: #f1f5f9; opacity: 0.9;">We're trusted and loved by a thriving community of over 132,000 parents.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <div id="contact-form">
+                    <h3>Request More Information</h3>
+                    <form action="https://formspree.io/f/xqakrzwn" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">School/Organization</label>
+                            <input type="text" id="school" name="school" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">How can we help?</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">Let's Talk</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section (Commented Out)
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>ShipSpace</h3>
+                <p>Transforming education through hands-on learning</p>
+            </div>
+            <div class="footer-column">
+                <h3>Programs</h3>
+                <ul>
+                    <li><a href="#">STEM Projects</a></li>
+                    <li><a href="#">AI & Technology</a></li>
+                    <li><a href="#">Community Impact</a></li>
+                    <li><a href="#">Career Exploration</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Impact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Partner With Us</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    -->
+</body>
+</html> 

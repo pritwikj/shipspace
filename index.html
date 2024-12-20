@@ -27,7 +27,7 @@
             top: 0;
             width: 100%;
             background-color: white;
-            padding: 1rem 2rem;
+            padding: 1rem 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             z-index: 1000;
         }
@@ -38,6 +38,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-left: 0;
         }
 
         .logo {
@@ -50,6 +51,7 @@
         .nav-links {
             display: flex;
             gap: 2rem;
+            margin-right: -5rem;
         }
 
         .nav-links a {
@@ -60,13 +62,13 @@
         }
 
         .nav-links a:hover {
-            color: #2563eb;
+            color: #5292ff;
         }
 
         /* Hero section */
         .hero {
             padding: 8rem 2rem 2rem;
-            background: linear-gradient(to right, #f8fafc, #e2e8f0);
+            background: linear-gradient(to right, #f8fafc, rgba(0, 74, 173, 0.1));
             min-height: auto;
             display: flex;
             flex-direction: column;
@@ -98,7 +100,7 @@
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background-color: #2563eb;
+            background-color: #004aad;
             color: white;
             text-decoration: none;
             border-radius: 0.5rem;
@@ -106,7 +108,7 @@
         }
 
         .cta-button:hover {
-            background-color: #1d4ed8;
+            background-color: #5292ff;
         }
 
         /* Features section */
@@ -137,13 +139,13 @@
 
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 74, 173, 0.2);
         }
 
         /* Contact section */
         .contact {
             padding: 4rem 2rem;
-            background: linear-gradient(to right, #1e40af, #2563eb);
+            background: linear-gradient(to right, #004aad, #5292ff) !important;
             color: white;
         }
 
@@ -242,7 +244,7 @@
         /* Add these styles to your existing CSS */
 
         .text-blue {
-            color: #2563eb;
+            color: #004aad;
         }
 
         .text-center {
@@ -273,17 +275,17 @@
 
         .benefit-card {
             padding: 1.5rem;
-            border: 1px solid rgba(37, 99, 235, 0.3);
+            border: 1px solid rgba(0, 74, 173, 0.3);
             border-radius: 0.5rem;
             transition: all 0.3s ease;
         }
 
         .benefit-card:hover {
-            background: #EFF2FE;
+            background: rgba(0, 74, 173, 0.1);
         }
 
         .icon-container {
-            background: rgba(37, 99, 235, 0.2);
+            background: rgba(0, 74, 173, 0.1);
             width: fit-content;
             padding: 0.75rem;
             border-radius: 0.5rem;
@@ -291,7 +293,7 @@
         }
 
         .icon-container svg {
-            color: #2563eb;
+            color: #004aad;
         }
 
         /* What's ShipSpace section */
@@ -450,7 +452,7 @@
         }
 
         .help-card:hover {
-            background: #EFF2FE;
+            background: rgba(0, 74, 173, 0.1);
         }
 
         .help-card h3 {
@@ -507,7 +509,7 @@
         .stat-item h3 {
             font-size: 3rem;
             font-weight: 600;
-            color: #2563eb;
+            color: #004aad;
             margin: 0;
         }
 
@@ -534,12 +536,27 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: -8rem;
+        }
+
+        .logo-image {
+            height: 4rem;
+            width: auto;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="#" class="logo">ShipSpace</a>
+            <div class="logo-container">
+                <img src="images/rocket_logo.png" alt="ShipSpace Logo" class="logo-image">
+                <a href="#" class="logo">ShipSpace</a>
+            </div>
             <div class="nav-links">
                 <a href="#about">About Us</a>
                 <a href="#programs">Programs</a>
@@ -556,7 +573,7 @@
                 <a href="#contact-form" class="cta-button">Partner With Us</a>
             </div>
             <div class="hero-image">
-                <!-- Add your hero image here -->
+                <img src="images/hero_image.png" alt="Students working on projects" style="width: 90%; height: auto;">
             </div>
         </div>
         
@@ -721,7 +738,7 @@
                         </div>
                         <div class="why-feature-text">
                             <h3>FOR EDUCATORS</h3>
-                            <p>Access ready-to-implement curriculum, track progress easily, and spend more time mentoring students.</p>
+                            <p>Leverage our comprehensive curriculum and focus on what matters most - inspiring and guiding your students.</p>
                         </div>
                     </div>
 
@@ -785,7 +802,7 @@
                         </svg>
                     </div>
                     <h3>Teachers</h3>
-                    <p>Inspire students with engaging, hands-on, project-based learning</p>
+                    <p>Inspire students with engaging, hands-on project building</p>
                 </div>
 
                 <div class="help-card">
@@ -807,7 +824,7 @@
                         </svg>
                     </div>
                     <h3>District & School Administrators</h3>
-                    <p>Accelerate critical thinking, math, and science skills with real-world connections</p>
+                    <p>Build student portfolios through hands-on projects that develop real-world skills</p>
                 </div>
 
                 <div class="help-card">
@@ -820,7 +837,7 @@
                         </svg>
                     </div>
                     <h3>Students & Parents</h3>
-                    <p>Foster a lifelong love for learning and a passion for STEM</p>
+                    <p>Foster a lifelong love for learning and building passion projects</p>
                 </div>
 
                 <div class="help-card">
@@ -831,7 +848,7 @@
                         </svg>
                     </div>
                     <h3>Public Schools</h3>
-                    <p>Empower K-12 learners in math and science through real-world applications</p>
+                    <p>Empower K-12 learners in real-world skills through real-world projects</p>
                 </div>
 
                 <div class="help-card">
@@ -841,7 +858,7 @@
                         </svg>
                     </div>
                     <h3>Private Schools</h3>
-                    <p>Stand out with innovative and fun STEM programs</p>
+                    <p>Stand out with innovative and fun project building programs</p>
                 </div>
             </div>
         </div>
@@ -879,7 +896,7 @@
         </div>
     </section>
 
-    <section id="impact" class="contact" style="background: linear-gradient(to right, #1e40af, #2563eb);">
+    <section id="impact" class="contact" style="background: linear-gradient(to right, #004aad, #5292ff);">
         <div class="contact-content">
             <div class="contact-info">
                 <h2 style="font-size: 2.0rem; margin: 0;">Impact-Driven Education</h2>
